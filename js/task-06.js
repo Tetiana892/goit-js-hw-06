@@ -4,16 +4,20 @@
 // Если введено подходящее количество символов, то border инпута становится зелёным, если неправильное - красным.
 // Для добавления стилей, используй CSS-классы valid и invalid, которые мы уже добавили в исходные файлы задания.
 
-const validationInput = document.querySelector(`input`);
+const textInput = document.querySelector("#validation-input");
 
-validationInput.addEventListener("blur", onInputInvalidation);
+console.log(textInput.getAttribute("data-length"));
 
-function onInputInvalidation(event) {
-  if (
-    Number(validationInput.dataset.length) === event.currentTarget.value.length
-  ) {
-    validationInput.classList.add(`valid`);
+textInput.addEventListener("blur", (event) => {
+  if (event.target.value.length == textInput.getAttribute("data-length")) {
+    textInput.classList.add("valid");
+    if (textInput.classList.contains("invalid")) {
+      textInput.classList.remove("invalid");
+    }
   } else {
-    validationInput.classList.add(`invalid`);
+    if (textInput.classList.contains("valid")) {
+      textInput.classList.remove("valid");
+    }
+    textInput.classList.add("invalid");
   }
-}
+});
